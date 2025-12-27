@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: timetable
+
+  # WebFlux 설정
+  webflux:
+    base-path: /api
+
+  # R2DBC 데이터베이스 설정 (사용할 DB에 맞게 수정)
+  r2dbc:
+    url: r2dbc:h2:mem:///timetable
+    username: sa
+    password:
+
+  # H2 콘솔 (개발용)
+  h2:
+    console:
+      enabled: true
+
+# 서버 설정
+server:
+  port: 8080
+
+# 로깅 설정
+logging:
+  level:
+    root: INFO
+    kr.picktime.timetable: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.r2dbc: DEBUG
