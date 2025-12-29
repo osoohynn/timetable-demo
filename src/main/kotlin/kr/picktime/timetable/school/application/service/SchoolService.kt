@@ -17,8 +17,8 @@ class SchoolService(
     suspend fun createSchool(request: CreateSchoolRequest): SchoolResponse {
         validateSchoolCodeNotExists(request.schoolCode)
         val school = createSchoolEntity(request)
-        val savedSchool = schoolRepository.save(school)
-        return SchoolResponse.from(savedSchool)
+        val saved = schoolRepository.save(school)
+        return SchoolResponse.from(saved)
     }
 
     private suspend fun validateSchoolCodeNotExists(schoolCode: String) {

@@ -1,5 +1,6 @@
 package kr.picktime.timetable.period.presentation.controller
 
+import jakarta.validation.Valid
 import kr.picktime.timetable.period.application.service.PeriodService
 import kr.picktime.timetable.period.presentation.dto.CreatePeriodRequest
 import kr.picktime.timetable.period.presentation.dto.DayPeriodResponse
@@ -15,27 +16,6 @@ class PeriodController(
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    suspend fun createPeriod(@RequestBody request: CreatePeriodRequest): PeriodResponse =
+    suspend fun createPeriod(@Valid @RequestBody request: CreatePeriodRequest): List<PeriodResponse> =
         periodService.createPeriod(request)
-
-    @GetMapping("/school/{schoolId}")
-    @ResponseStatus(HttpStatus.OK)
-    suspend fun getPeriodsBySchoolId(@PathVariable schoolId: Long): PeriodResponse =
-        periodService.getPeriodsBySchoolId(schoolId)
-
-    @GetMapping("/school/{schoolId}/day/{dayOfWeek}")
-    @ResponseStatus(HttpStatus.OK)
-    suspend fun getPeriodsBySchoolIdAndDayOfWeek(
-        @PathVariable schoolId: Long,
-        @PathVariable dayOfWeek: DayOfWeek
-    ): DayPeriodResponse =
-        periodService.getPeriodsBySchoolIdAndDayOfWeek(schoolId, dayOfWeek)
-
-    @PutMapping("/school/{schoolId}")
-    @ResponseStatus(HttpStatus.OK)
-    suspend fun updatePeriod(
-        @PathVariable schoolId: Long,
-        @RequestBody request: CreatePeriodRequest
-    ): PeriodResponse =
-        periodService.updatePeriod(schoolId, request)
 }

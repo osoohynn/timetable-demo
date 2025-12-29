@@ -1,5 +1,6 @@
 package kr.picktime.timetable.school.presentation.controller
 
+import jakarta.validation.Valid
 import kr.picktime.timetable.school.application.service.SchoolService
 import kr.picktime.timetable.school.presentation.dto.CreateSchoolRequest
 import kr.picktime.timetable.school.presentation.dto.SchoolResponse
@@ -13,6 +14,6 @@ class SchoolController(
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    suspend fun createSchool(@RequestBody request: CreateSchoolRequest): SchoolResponse =
+    suspend fun createSchool(@Valid @RequestBody request: CreateSchoolRequest): SchoolResponse =
         schoolService.createSchool(request)
 }

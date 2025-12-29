@@ -7,9 +7,6 @@ enum class SchoolErrorCode(
     override val status: HttpStatus,
     override val message: String
 ) : ErrorCode {
-    SCHOOL_NOT_FOUND(HttpStatus.NOT_FOUND, "School not found"),
-    SCHOOL_CODE_ALREADY_EXISTS(HttpStatus.CONFLICT, "School code already exists"),
-    SCHOOL_CLASS_NOT_FOUND(HttpStatus.NOT_FOUND, "School class not found"),
-    SCHOOL_CLASS_ALREADY_EXISTS(HttpStatus.CONFLICT, "School class already exists"),
-    SCHOOL_CLASS_NOT_BELONGS_TO_SCHOOL(HttpStatus.FORBIDDEN, "School class does not belong to this school")
+    SCHOOL_NOT_FOUND(HttpStatus.NOT_FOUND, "찾을 수 없는 학교입니다."),
+    SCHOOL_CODE_ALREADY_EXISTS(HttpStatus.CONFLICT, "존재하는 학교 코드입니다."),
 }

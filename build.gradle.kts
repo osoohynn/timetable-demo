@@ -23,16 +23,27 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	runtimeOnly("io.r2dbc:r2dbc-h2")
+
+	// Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// Kotest
+	testImplementation("io.kotest:kotest-runner-junit5:5.8.0")
+	testImplementation("io.kotest:kotest-assertions-core:5.8.0")
+	testImplementation("io.kotest:kotest-property:5.8.0")
+
+	// MockK
+	testImplementation("io.mockk:mockk:1.13.8")
+	testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 kotlin {

@@ -1,14 +1,27 @@
 package kr.picktime.timetable.period.presentation.dto
 
-import kr.picktime.timetable.period.domain.entity.PeriodSettingEntity
-import kr.picktime.timetable.period.domain.entity.PeriodTimeEntity
+import kr.picktime.timetable.period.domain.entity.PeriodEntity
+import java.time.DayOfWeek
+import java.time.LocalTime
 
 data class PeriodResponse(
-    val periodSettings: List<PeriodSettingEntity>,
-    val periodTimes: List<PeriodTimeEntity>
-)
-
-data class DayPeriodResponse(
-    val periodSetting: PeriodSettingEntity,
-    val periodTimes: List<PeriodTimeEntity>
-)
+    val id: Long,
+    val schoolId: Long,
+    val period: Int,
+    val startTime: LocalTime,
+    val endTime: LocalTime,
+    val dayOfWeek: DayOfWeek
+) {
+    companion object {
+        fun from(entity: PeriodEntity): PeriodResponse {
+            return PeriodResponse(
+                id = entity.id!!,
+                schoolId = entity.schoolId,
+                period = entity.period,
+                startTime = entity.startTime,
+                endTime = entity.endTime,
+                dayOfWeek = entity.dayOfWeek
+            )
+        }
+    }
+}
