@@ -1,0 +1,7 @@
+CREATE TABLE teachers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    school_id BIGINT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL DEFAULT 'REGULAR',
+    CONSTRAINT fk_teacher_school FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE
+);

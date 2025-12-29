@@ -1,0 +1,9 @@
+CREATE TABLE schools (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    school_code VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    weekly_class_hours BIGINT NOT NULL
+);
