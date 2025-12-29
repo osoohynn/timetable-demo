@@ -10,5 +10,4 @@ data class SchoolClassEntity(
     val schoolId: Long,
     val grade: Long,
     val classNumber: Long,
-    val homeroomTeacherId: Long? = null,
 )

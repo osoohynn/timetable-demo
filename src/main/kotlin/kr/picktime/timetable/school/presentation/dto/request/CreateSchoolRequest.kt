@@ -1,4 +1,4 @@
-package kr.picktime.timetable.school.presentation.dto
+package kr.picktime.timetable.school.presentation.dto.request
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull

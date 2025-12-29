@@ -1,4 +1,4 @@
-package kr.picktime.timetable.school.presentation.dto
+package kr.picktime.timetable.school.presentation.dto.response
 
 import kr.picktime.timetable.school.domain.entity.SchoolEntity
 import kr.picktime.timetable.school.domain.enums.City

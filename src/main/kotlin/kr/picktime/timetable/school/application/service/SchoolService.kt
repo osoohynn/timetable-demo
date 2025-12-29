@@ -4,8 +4,8 @@ import kr.picktime.timetable.global.exception.CustomException
 import kr.picktime.timetable.school.domain.entity.SchoolEntity
 import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode
-import kr.picktime.timetable.school.presentation.dto.CreateSchoolRequest
-import kr.picktime.timetable.school.presentation.dto.SchoolResponse
+import kr.picktime.timetable.school.presentation.dto.request.CreateSchoolRequest
+import kr.picktime.timetable.school.presentation.dto.response.SchoolResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

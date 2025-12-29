@@ -11,7 +11,7 @@ import kr.picktime.timetable.school.domain.entity.SchoolEntity
 import kr.picktime.timetable.school.domain.enums.City
 import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode
-import kr.picktime.timetable.school.presentation.dto.CreateSchoolRequest
+import kr.picktime.timetable.school.presentation.dto.request.CreateSchoolRequest
 
 class SchoolServiceTest : DescribeSpec({
     val schoolRepository = mockk<SchoolRepository>()
