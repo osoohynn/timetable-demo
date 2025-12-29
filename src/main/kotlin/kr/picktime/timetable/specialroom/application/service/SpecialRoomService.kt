@@ -9,12 +9,14 @@ import kr.picktime.timetable.specialroom.domain.repository.SpecialRoomRepository
 import kr.picktime.timetable.specialroom.presentation.dto.request.CreateSpecialRoomRequest
 import kr.picktime.timetable.specialroom.presentation.dto.response.SpecialRoomResponse
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SpecialRoomService(
     private val specialRoomRepository: SpecialRoomRepository,
     private val schoolRepository: SchoolRepository,
 ) {
+    @Transactional
     suspend fun createSpecialRoom(schoolId: Long, request: CreateSpecialRoomRequest): SpecialRoomResponse {
         val school = findSchoolBy(schoolId)
         val specialRoom = createSpecialRoomEntity(school.id!!, request)
