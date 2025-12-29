@@ -9,9 +9,6 @@ import java.time.DayOfWeek
 import java.time.LocalTime
 
 data class CreatePeriodRequest(
-    @field:Positive(message = "학교 ID는 양수여야 합니다.")
-    val schoolId: Long,
-
     @field:NotEmpty(message = "교시 정보는 최소 1개 이상이어야 합니다.")
     @field:Valid
     val periods: Set<PeriodTimeRequest>

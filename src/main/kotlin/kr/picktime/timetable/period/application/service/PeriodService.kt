@@ -2,75 +2,68 @@ package kr.picktime.timetable.period.application.service
 
 import kr.picktime.timetable.global.exception.CustomException
 import kr.picktime.timetable.period.domain.entity.PeriodEntity
-import kr.picktime.timetable.period.domain.repository.PeriodTimeRepository
+import kr.picktime.timetable.period.domain.repository.PeriodRepository
 import kr.picktime.timetable.period.exception.PeriodErrorCode
 import kr.picktime.timetable.period.presentation.dto.CreatePeriodRequest
 import kr.picktime.timetable.period.presentation.dto.PeriodResponse
 import kr.picktime.timetable.school.domain.entity.SchoolEntity
 import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode
+import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class PeriodService(
-    private val periodTimeRepository: PeriodTimeRepository,
+    private val periodRepository: PeriodRepository,
     private val schoolRepository: SchoolRepository
 ) {
     @Transactional
-    suspend fun createPeriod(request: CreatePeriodRequest): List<PeriodResponse> {
-        val school = getSchoolById(request.schoolId)
-
-        val totalPeriods = request.periods.size.toLong()
-        validateWeeklyClassHoursMatch(school.weeklyClassHours, totalPeriods)
-
-        val saved = savePeriods(request)
-        return saved.map { PeriodResponse.from(it) }
-    }
-
-    private fun validateWeeklyClassHoursMatch(weeklyClassHours: Long, totalPeriods: Long) {
-        if (weeklyClassHours != totalPeriods) {
+    suspend fun createOrUpdatePeriod(schoolId: Long, request: CreatePeriodRequest): List<PeriodResponse> {
+        val school = findSchoolBy(schoolId)
+        if (school.weeklyClassHours != request.periods.size.toLong()) {
             throw CustomException(PeriodErrorCode.WEEKLY_CLASS_HOURS_MISMATCH)
         }
+
+        upsertPeriod(schoolId, request)
+
+        return findAllPeriodEntities(schoolId)
+            .map { PeriodResponse.from(it) }
     }
 
-    private suspend fun savePeriods(request: CreatePeriodRequest): List<PeriodEntity> {
-        return request.periods.map { period ->
-            val existingTime = periodTimeRepository.findBySchoolIdAndPeriod(
-                request.schoolId,
-                period.periodNumber.toInt()
+    @Transactional(readOnly = true)
+    suspend fun getPeriods(schoolId: Long): List<PeriodResponse> {
+        return findAllPeriodEntities(schoolId).map { PeriodResponse.from(it) }
+    }
+
+    private suspend fun upsertPeriod(schoolId: Long, request: CreatePeriodRequest) {
+        request.periods.forEach { period ->
+            val existing = periodRepository.findBySchoolIdAndPeriod(
+                schoolId,
+                period.periodNumber
             )
-            if (existingTime != null) {
-                periodTimeRepository.save(
-                    existingTime.copy(
-                        startTime = period.startTime,
-                        endTime = period.endTime,
-                        dayOfWeek = period.dayOfWeek
-                    )
-                )
-            } else {
-                periodTimeRepository.save(
-                    createPeriodEntity(request, period)
-                )
-            }
+
+            val entity = existing?.copy(
+                startTime = period.startTime,
+                endTime = period.endTime,
+                dayOfWeek = period.dayOfWeek
+            ) ?: PeriodEntity(
+                schoolId = schoolId,
+                period = period.periodNumber,
+                startTime = period.startTime,
+                endTime = period.endTime,
+                dayOfWeek = period.dayOfWeek
+            )
+
+            periodRepository.save(entity)
         }
     }
 
-    private fun createPeriodEntity(
-        request: CreatePeriodRequest,
-        period: CreatePeriodRequest.PeriodTimeRequest
-    ): PeriodEntity {
-        return PeriodEntity(
-            schoolId = request.schoolId,
-            period = period.periodNumber.toInt(),
-            startTime = period.startTime,
-            endTime = period.endTime,
-            dayOfWeek = period.dayOfWeek
-        )
-    }
+    private suspend fun findAllPeriodEntities(schoolId: Long) =
+        periodRepository.findAllBySchoolId(schoolId)
+            .toList()
 
-    private suspend fun getSchoolById(schoolId: Long): SchoolEntity {
-        return schoolRepository.findById(schoolId)
+    private suspend fun findSchoolBy(schoolId: Long): SchoolEntity =
+        schoolRepository.findById(schoolId)
             ?: throw CustomException(SchoolErrorCode.SCHOOL_NOT_FOUND)
-    }
 }
