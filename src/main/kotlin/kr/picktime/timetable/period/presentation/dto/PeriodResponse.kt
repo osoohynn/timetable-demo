@@ -7,7 +7,7 @@ import java.time.LocalTime
 data class PeriodResponse(
     val id: Long,
     val schoolId: Long,
-    val period: Int,
+    val period: Long,
     val startTime: LocalTime,
     val endTime: LocalTime,
     val dayOfWeek: DayOfWeek
