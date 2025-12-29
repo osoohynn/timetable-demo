@@ -4,8 +4,8 @@ import kr.picktime.timetable.global.exception.CustomException
 import kr.picktime.timetable.period.domain.entity.PeriodEntity
 import kr.picktime.timetable.period.domain.repository.PeriodRepository
 import kr.picktime.timetable.period.exception.PeriodErrorCode
-import kr.picktime.timetable.period.presentation.dto.CreatePeriodRequest
-import kr.picktime.timetable.period.presentation.dto.PeriodResponse
+import kr.picktime.timetable.period.presentation.dto.request.CreatePeriodRequest
+import kr.picktime.timetable.period.presentation.dto.response.PeriodResponse
 import kr.picktime.timetable.school.domain.entity.SchoolEntity
 import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode

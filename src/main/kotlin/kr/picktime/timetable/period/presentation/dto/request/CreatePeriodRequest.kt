@@ -1,4 +1,4 @@
-package kr.picktime.timetable.period.presentation.dto
+package kr.picktime.timetable.period.presentation.dto.request
 
 import jakarta.validation.Valid
 import jakarta.validation.constraints.AssertTrue

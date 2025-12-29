@@ -1,4 +1,4 @@
-package kr.picktime.timetable.period.presentation.dto
+package kr.picktime.timetable.period.presentation.dto.response
 
 import kr.picktime.timetable.period.domain.entity.PeriodEntity
 import java.time.DayOfWeek

@@ -2,8 +2,8 @@ package kr.picktime.timetable.period.presentation.controller
 
 import jakarta.validation.Valid
 import kr.picktime.timetable.period.application.service.PeriodService
-import kr.picktime.timetable.period.presentation.dto.CreatePeriodRequest
-import kr.picktime.timetable.period.presentation.dto.PeriodResponse
+import kr.picktime.timetable.period.presentation.dto.request.CreatePeriodRequest
+import kr.picktime.timetable.period.presentation.dto.response.PeriodResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
