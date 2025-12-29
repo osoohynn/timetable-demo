@@ -16,5 +16,9 @@ enum class PeriodErrorCode(
     PERIOD_TIME_NOT_FOUND(HttpStatus.NOT_FOUND, "Period time not found"),
     PERIOD_TIME_ALREADY_EXISTS(HttpStatus.CONFLICT, "Period time already exists"),
     INVALID_PERIOD(HttpStatus.BAD_REQUEST, "Period must be greater than 0"),
-    INVALID_TIME_RANGE(HttpStatus.BAD_REQUEST, "Start time must be before end time")
+    INVALID_TIME_RANGE(HttpStatus.BAD_REQUEST, "Start time must be before end time"),
+
+    // Validation
+    INVALID_INPUT(HttpStatus.BAD_REQUEST, "Invalid input"),
+    WEEKLY_CLASS_HOURS_MISMATCH(HttpStatus.BAD_REQUEST, "Total periods do not match school's weekly class hours")
 }

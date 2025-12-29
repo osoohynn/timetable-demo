@@ -13,4 +13,5 @@ data class SchoolEntity(
     val city: City,
     val schoolCode: String,
     val password: String,
+    val weeklyClassHours: Long,
 )

@@ -7,7 +7,7 @@ import java.time.LocalTime
 @Table("period_times")
 data class PeriodTimeEntity(
     @Id
-    val id: Long,
+    val id: Long? = null,
     val schoolId: Long,
     val period: Int,
     val startTime: LocalTime,
