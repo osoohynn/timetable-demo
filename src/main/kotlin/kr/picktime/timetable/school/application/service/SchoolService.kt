@@ -7,7 +7,6 @@ import kr.picktime.timetable.school.exception.SchoolErrorCode
 import kr.picktime.timetable.school.presentation.dto.request.CreateSchoolRequest
 import kr.picktime.timetable.school.presentation.dto.response.SchoolResponse
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SchoolService(
