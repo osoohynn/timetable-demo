@@ -4,21 +4,30 @@ import kr.picktime.timetable.global.exception.CustomException
 import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode
 import kr.picktime.timetable.subject.domain.entity.SubjectEntity
+import kr.picktime.timetable.subject.domain.entity.SubjectSpecialRoomEntity
 import kr.picktime.timetable.subject.domain.repository.SubjectRepository
+import kr.picktime.timetable.subject.domain.repository.SubjectSpecialRoomRepository
 import kr.picktime.timetable.subject.presentation.dto.request.CreateSubjectRequest
 import kr.picktime.timetable.subject.presentation.dto.response.SubjectResponse
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SubjectService(
     private val subjectRepository: SubjectRepository,
     private val schoolRepository: SchoolRepository,
+    private val subjectSpecialRoomRepository: SubjectSpecialRoomRepository
 ) {
-    @Transactional
     suspend fun createSubject(schoolId: Long, request: CreateSubjectRequest): SubjectResponse {
         val school = findSchoolEntity(schoolId)
         val saved = createSubjectEntity(school.id!!, request)
+        request.specialRoomIds.forEach { specialRoomId ->
+            subjectSpecialRoomRepository.save(
+                SubjectSpecialRoomEntity(
+                    subjectId = saved.id!!,
+                    specialRoomId = specialRoomId
+                )
+            )
+        }
         return SubjectResponse.from(saved)
     }
 

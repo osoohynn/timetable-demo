@@ -3,13 +3,10 @@ package kr.picktime.timetable.subject.domain.entity
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
-@Table(name = "subjects")
-data class SubjectEntity(
+@Table("subject_special_rooms")
+data class SubjectSpecialRoomEntity(
     @Id
     val id: Long? = null,
-    val schoolId: Long,
-    val name: String,
-    val shortName: String,
+    val subjectId: Long,
+    val specialRoomId: Long,
 )
-
-// TODO 반 과목 연결 해야할려나 일단 보류
