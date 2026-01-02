@@ -55,6 +55,10 @@ class TeacherService(
         )
     }
 
+    suspend fun getTeachers(schoolId: Long): List<TeacherResponse> {
+        return teacherRepository.findAllBySchoolId(schoolId).map { TeacherResponse.from(it) }
+    }
+
     private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity {
         return schoolRepository.findById(schoolId)
             ?: throw CustomException(SchoolErrorCode.SCHOOL_NOT_FOUND)
