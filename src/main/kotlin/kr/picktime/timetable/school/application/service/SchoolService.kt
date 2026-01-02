@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional
 class SchoolService(
     private val schoolRepository: SchoolRepository
 ) {
-    @Transactional
     suspend fun createSchool(request: CreateSchoolRequest): SchoolResponse {
         validateSchoolCodeNotExists(request.schoolCode)
         val school = createSchoolEntity(request)

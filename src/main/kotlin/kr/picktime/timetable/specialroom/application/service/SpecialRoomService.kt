@@ -18,7 +18,7 @@ class SpecialRoomService(
 ) {
     @Transactional
     suspend fun createSpecialRoom(schoolId: Long, request: CreateSpecialRoomRequest): SpecialRoomResponse {
-        val school = findSchoolBy(schoolId)
+        val school = findSchoolEntityBy(schoolId)
         val specialRoom = createSpecialRoomEntity(school.id!!, request)
         val saved = specialRoomRepository.save(specialRoom)
         return SpecialRoomResponse.from(saved)
@@ -32,7 +32,7 @@ class SpecialRoomService(
         name = request.name,
     )
 
-    private suspend fun findSchoolBy(schoolId: Long): SchoolEntity =
+    private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity =
         schoolRepository.findById(schoolId)
             ?: throw CustomException(SchoolErrorCode.SCHOOL_NOT_FOUND)
 }

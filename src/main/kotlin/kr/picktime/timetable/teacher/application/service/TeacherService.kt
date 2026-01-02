@@ -21,30 +21,39 @@ class TeacherService(
 ) {
     suspend fun createTeacher(schoolId: Long, request: CreateTeacherRequest): TeacherResponse {
         val school = findSchoolEntityBy(schoolId)
-        val teacher = createTeacherEntity(school, request)
+        val teacher = createTeacherEntity(school.id!!, request)
         val saved = teacherRepository.save(teacher)
         if (teacher.type != TeacherType.REGULAR) {
-            request.availableTimes?.forEach{
-                val teacherAvailability = TeacherAvailabilityEntity(
-                    teacherId = saved.id!!,
-                    dayOfWeek = it.dayOfWeek,
-                    startPeriod = it.startPeriod,
-                    endPeriod = it.endPeriod
-                )
+            request.availableTimes?.forEach {
+                val teacherAvailability = createTeacherAvailabilityEntity(saved.id!!, it)
                 teacherAvailabilityRepository.save(teacherAvailability)
             }
         }
         return TeacherResponse.from(saved)
     }
 
+    private fun createTeacherAvailabilityEntity(
+        teacherId: Long,
+        availableTime: CreateTeacherRequest.CreateTeacherAvailabilityRequest
+    ): TeacherAvailabilityEntity {
+        return TeacherAvailabilityEntity(
+            teacherId = teacherId,
+            dayOfWeek = availableTime.dayOfWeek,
+            startPeriod = availableTime.startPeriod,
+            endPeriod = availableTime.endPeriod
+        )
+    }
+
     private fun createTeacherEntity(
-        school: SchoolEntity,
+        schoolId: Long,
         request: CreateTeacherRequest
-    ) = TeacherEntity(
-        schoolId = school.id!!,
-        name = request.name,
-        type = request.type,
-    )
+    ): TeacherEntity {
+        return TeacherEntity(
+            schoolId = schoolId,
+            name = request.name,
+            type = request.type,
+        )
+    }
 
     private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity {
         return schoolRepository.findById(schoolId)

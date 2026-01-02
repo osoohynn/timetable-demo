@@ -8,15 +8,13 @@ import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode
 import kr.picktime.timetable.school.presentation.dto.request.CreateSchoolClassRequest
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SchoolClassService(
     private val schoolClassRepository: SchoolClassRepository,
     private val schoolRepository: SchoolRepository,
 ) {
-    @Transactional
-    suspend fun createSchoolClass(schoolId: Long, request: CreateSchoolClassRequest) {
+    suspend fun createClass(schoolId: Long, request: CreateSchoolClassRequest) {
         val school = findSchoolEntityBy(schoolId)
 
         // TODO 중복체크
