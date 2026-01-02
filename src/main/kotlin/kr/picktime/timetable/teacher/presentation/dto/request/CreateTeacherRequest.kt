@@ -1,4 +1,4 @@
-package kr.picktime.timetable.teacher.presentation.request.dto.request
+package kr.picktime.timetable.teacher.presentation.dto.request
 
 import kr.picktime.timetable.teacher.domain.enum.TeacherType
 import java.time.DayOfWeek

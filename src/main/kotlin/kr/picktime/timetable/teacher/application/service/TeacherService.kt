@@ -9,9 +9,8 @@ import kr.picktime.timetable.teacher.domain.entity.TeacherEntity
 import kr.picktime.timetable.teacher.domain.enum.TeacherType
 import kr.picktime.timetable.teacher.domain.repository.TeacherAvailabilityRepository
 import kr.picktime.timetable.teacher.domain.repository.TeacherRepository
-import kr.picktime.timetable.teacher.presentation.request.dto.CreateTeacherRequest
+import kr.picktime.timetable.teacher.presentation.dto.request.CreateTeacherRequest
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class TeacherService(
@@ -19,7 +18,6 @@ class TeacherService(
     private val teacherAvailabilityRepository: TeacherAvailabilityRepository,
     private val schoolRepository: SchoolRepository,
 ) {
-    @Transactional
     suspend fun createTeacher(schoolId: Long, request: CreateTeacherRequest) {
         val school = findSchoolEntityBy(schoolId)
         val teacher = TeacherEntity(

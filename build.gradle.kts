@@ -33,7 +33,6 @@ dependencies {
 	runtimeOnly("io.r2dbc:r2dbc-h2")
 	runtimeOnly("com.h2database:h2")
 	implementation("org.flywaydb:flyway-core")
-	runtimeOnly("org.flywaydb:flyway-database-h2")
 
 	// Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
