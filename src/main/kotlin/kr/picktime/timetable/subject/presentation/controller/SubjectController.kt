@@ -19,4 +19,9 @@ class SubjectController(
     ): SubjectResponse {
         return subjectService.createSubject(schoolId, request)
     }
+
+    @GetMapping
+    suspend fun getSubjects(@PathVariable schoolId: Long): List<SubjectResponse> {
+        return subjectService.getSubjects(schoolId)
+    }
 }

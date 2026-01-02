@@ -4,4 +4,5 @@ import kr.picktime.timetable.subject.domain.entity.SubjectEntity
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 interface SubjectRepository : CoroutineCrudRepository<SubjectEntity, Long> {
+    suspend fun findAllBySchoolId(schoolId: Long): List<SubjectEntity>
 }

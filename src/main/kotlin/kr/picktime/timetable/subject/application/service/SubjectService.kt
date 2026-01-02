@@ -52,6 +52,10 @@ class SubjectService(
         )
     }
 
+    suspend fun getSubjects(schoolId: Long): List<SubjectResponse> {
+        return subjectRepository.findAllBySchoolId(schoolId).map { SubjectResponse.from(it) }
+    }
+
     private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity {
         return schoolRepository.findById(schoolId) ?: throw CustomException(SchoolErrorCode.SCHOOL_NOT_FOUND)
     }
