@@ -9,7 +9,6 @@ data class CreateTeacherAssignmentRequest(
         val subjectId: Long,
         val hoursPerWeek: Long,
         val isBlock: Boolean = false,
-        val blockSize: Long? = null,
-        val blockCount: Long? = null,
+        val blockSizes: List<Long>? = null, // 블록 크기 리스트 (예: [3, 3] 또는 [2, 4] 또는 [1, 2, 3])
     )
 }
