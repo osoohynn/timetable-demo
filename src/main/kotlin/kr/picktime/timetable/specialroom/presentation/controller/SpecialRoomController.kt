@@ -1,4 +1,4 @@
-package kr.picktime.timetable.specialroom.presentation.dto.controller
+package kr.picktime.timetable.specialroom.presentation.controller
 
 import jakarta.validation.Valid
 import kr.picktime.timetable.specialroom.application.service.SpecialRoomService
