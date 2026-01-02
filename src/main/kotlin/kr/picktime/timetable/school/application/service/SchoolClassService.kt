@@ -7,6 +7,7 @@ import kr.picktime.timetable.school.domain.repository.SchoolClassRepository
 import kr.picktime.timetable.school.domain.repository.SchoolRepository
 import kr.picktime.timetable.school.exception.SchoolErrorCode
 import kr.picktime.timetable.school.presentation.dto.request.CreateSchoolClassRequest
+import kr.picktime.timetable.school.presentation.dto.response.SchoolClassResponse
 import org.springframework.stereotype.Service
 
 @Service
@@ -27,6 +28,10 @@ class SchoolClassService(
                 ))
             }
         }
+    }
+
+    suspend fun getClasses(schoolId: Long): List<SchoolClassResponse> {
+        return schoolClassRepository.findAllBySchoolId(schoolId).map { SchoolClassResponse.from(it) }
     }
 
     private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity {
