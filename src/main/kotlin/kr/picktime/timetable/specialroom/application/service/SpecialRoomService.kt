@@ -9,19 +9,23 @@ import kr.picktime.timetable.specialroom.domain.repository.SpecialRoomRepository
 import kr.picktime.timetable.specialroom.presentation.dto.request.CreateSpecialRoomRequest
 import kr.picktime.timetable.specialroom.presentation.dto.response.SpecialRoomResponse
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SpecialRoomService(
     private val specialRoomRepository: SpecialRoomRepository,
     private val schoolRepository: SchoolRepository,
 ) {
-    @Transactional
     suspend fun createSpecialRoom(schoolId: Long, request: CreateSpecialRoomRequest): SpecialRoomResponse {
         val school = findSchoolEntityBy(schoolId)
         val specialRoom = createSpecialRoomEntity(school.id!!, request)
         val saved = specialRoomRepository.save(specialRoom)
         return SpecialRoomResponse.from(saved)
+    }
+
+    suspend fun getSpecialRooms(schoolId: Long): List<SpecialRoomResponse> {
+        return specialRoomRepository.findAllBySchoolId(schoolId)
+            .map { SpecialRoomResponse.from(it) }
+            .toList()
     }
 
     private fun createSpecialRoomEntity(
@@ -32,7 +36,8 @@ class SpecialRoomService(
         name = request.name,
     )
 
-    private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity =
-        schoolRepository.findById(schoolId)
+    private suspend fun findSchoolEntityBy(schoolId: Long): SchoolEntity {
+        return schoolRepository.findById(schoolId)
             ?: throw CustomException(SchoolErrorCode.SCHOOL_NOT_FOUND)
+    }
 }

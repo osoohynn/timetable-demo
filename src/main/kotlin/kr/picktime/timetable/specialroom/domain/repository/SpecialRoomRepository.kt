@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SpecialRoomRepository : CoroutineCrudRepository<SpecialRoomEntity, Long> {
+    suspend fun findAllBySchoolId(schoolId: Long): List<SpecialRoomEntity>
 }

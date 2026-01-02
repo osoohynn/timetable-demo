@@ -20,4 +20,8 @@ class SpecialRoomController(
         @RequestBody request: CreateSpecialRoomRequest
     ): SpecialRoomResponse =
         specialRoomService.createSpecialRoom(schoolId, request)
+
+    @GetMapping
+    suspend fun getSpecialRooms(@PathVariable schoolId: Long): List<SpecialRoomResponse> =
+        specialRoomService.getSpecialRooms(schoolId)
 }
