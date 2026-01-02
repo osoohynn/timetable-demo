@@ -7,7 +7,7 @@ import kr.picktime.timetable.subject.presentation.dto.response.SubjectResponse
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/schools/{schoolId}/subjects")
+@RequestMapping("/schools/{schoolId}/subjects")
 class SubjectController(
     private val subjectService: SubjectService
 ) {

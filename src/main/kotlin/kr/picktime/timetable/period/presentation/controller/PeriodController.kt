@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/schools/{schoolId}/periods")
+@RequestMapping("/schools/{schoolId}/periods")
 class PeriodController(
     private val periodService: PeriodService
 ) {

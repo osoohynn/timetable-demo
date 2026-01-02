@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/schools/{schoolId}/teachers")
+@RequestMapping("/schools/{schoolId}/teachers")
 class TeacherController(
     private val teacherService: TeacherService
 ) {
